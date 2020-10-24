@@ -6,6 +6,7 @@ const { response } = require('express');
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
+const image = require('./controllers/image');
 
 const db = knex({
 	client: 'pg',
@@ -42,16 +43,8 @@ app.post('/register', (req, res) => {
 app.get('/profile/:id', (req, res) => profile.handleProfile(req, res, db));
 
 // Image
-app.put('/image', (req, res) => {
-	const { id } = req.body;
-	db('users').where('id', '=', id)
-		.increment('entries', 1)
-		.returning('entries')
-		.then(entries => {
-			res.json(entries[0]);
-		})
-		.catch(err => res.status(400).json('unable to get entries'));
-});
+app.put('/image', (req, res) => image.handleImage(req, res, db));
+app.post('/image', (req, res) => image.handleApiCall(req, res));
 
 app.listen(3000, () => {
 	console.log('app is running on port 3000');
