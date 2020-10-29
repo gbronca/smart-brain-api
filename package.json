@@ -1,8 +1,11 @@
 {
   "name": "smart-brain-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "A face recognition app using ClarifAI API and React.js",
   "main": "index.js",
+  "engines": {
+    "node": "14.15.x"
+  },
   "scripts": {
     "start": "node server.js",
     "start:dev": "nodemon server.js"
